@@ -9,10 +9,10 @@ class conexion
     private $bdName = "protectora_animales";
     private $conn;
 
-    protected function realizarConexion($server, $puerto, $userName, $password, $bdName)
+    protected function realizarConexion($server, $userName, $password, $bdName)
     {
         try {
-            $this->conn = new PDO("mysql:host=$server;puerto=$puerto;dbname=$bdName;charset=utf8", $userName, $password);
+            $this->conn = new PDO("mysql:host=$server;dbname=$bdName;charset=utf8", $userName, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             if ($this->conn !== null) {
