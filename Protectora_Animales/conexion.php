@@ -11,8 +11,9 @@ class conexion
 
     protected function RealizarConexion()
     {
+        
         try {
-            $this->conn = new PDO("mysql:host=th$this->server;dbname=$this->bdName;charset=utf8", $this->userName, $this->password);
+            $this->conn = new PDO("mysql:host=$this->server;dbname=$this->dbname;charset=utf8", $this->userName, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             if ($this->conn !== null) {

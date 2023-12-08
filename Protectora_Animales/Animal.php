@@ -25,9 +25,14 @@ class Animal extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (nombre, especie, raza, genero, color, edad) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO {$this->tabla} (nombre, especie, raza, genero, color, edad) VALUES (:nombre, :especie, :raza, :genero, :color, :edad)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssi", $this->nombre, $this->especie, $this->raza, $this->genero, $this->color, $this->edad);
+        $stmt->bind_param(":nombre", $this->nombre);
+        $stmt->bind_param(":especie", $this->especie);
+        $stmt->bind_param(":raza", $this->raza);
+        $stmt->bind_param(":genero", $this->genero);
+        $stmt->bind_param(":color", $this->color);
+        $stmt->bind_param(":edad", $this->edad);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
@@ -38,9 +43,15 @@ class Animal extends Crud {
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET nombre = ?, especie = ?, raza = ?, genero = ?, color = ?, edad = ? WHERE id = ?";
+        $query = "UPDATE {$this->tabla} SET nombre = :nombre, especie = :especie, raza = :raza, genero = :genero, color = :color, edad = :edad WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssii", $this->nombre, $this->especie, $this->raza, $this->genero, $this->color, $this->edad, $this->id);
+        $stmt->bind_param(":nombre", $this->nombre);
+        $stmt->bind_param(":especie", $this->especie);
+        $stmt->bind_param(":raza", $this->raza);
+        $stmt->bind_param(":genero", $this->genero);
+        $stmt->bind_param(":color", $this->color);
+        $stmt->bind_param(":edad", $this->edad);
+        $stmt->bind_param(":id", $this->id);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
