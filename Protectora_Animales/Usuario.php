@@ -1,5 +1,7 @@
 <?php
 // Clase Usuario.php
+require_once("Crud.php");
+
 class Usuario extends Crud {
     private $id;
     private $nombre;
@@ -7,7 +9,8 @@ class Usuario extends Crud {
     private $sexo;
     private $direccion;
     private $telefono;
-    private $edad;
+    private $tabla;
+
 
     const TABLA = "usuarios";
 
@@ -20,73 +23,51 @@ class Usuario extends Crud {
         $this->$atributo = $valor;
     }
 
-    public function __get($atributo) {
-        return $this->$atributo;
-    }
+   
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (nombre, apellido, sexo, direccion, telefono, edad) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssi", $this->nombre, $this->apellido, $this->sexo, $this->direccion, $this->telefono, $this->edad);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            return true;
-        } else {
-            return false;
+        try {
+            $query = "INSERT INTO self::TABLA (nombre, apellido, sexo, direccion, telefono) VALUES (?,?,?,?,?)";
+            $stmt = $this->conexion->prepare($query);
+        
+            $stmt->bindParam(1, $this->nombre);
+            $stmt->bindParam(2, $this->apellido);
+            $stmt->bindParam(3, $this->sexo);
+            $stmt->bindParam(4, $this->direccion);
+            $stmt->bindParam(5, $this->telefono);
+        
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "No se pudo insertar: " . $e->getMessage();
         }
     }
+    
+    
+    
+    
+    
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET nombre = ?, apellido = ?, sexo = ?, direccion = ?, telefono = ?, edad = ? WHERE id = ?";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssii", $this->nombre, $this->apellido, $this->sexo, $this->direccion, $this->telefono, $this->edad, $this->id);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            return true;
-        } else {
-            return false;
+        try {
+            $query = "UPDATE self::TABLA SET nombre = ?, apellido = ?, direccion = ?, telefono = ?, edad = ? WHERE id = ?";
+            $stmt = $this->conexion->prepare($query);
+            $stmt->bind_param("ssssii", $this->nombre, $this->apellido, $this->direccion, $this->telefono, $this->edad, $this->id);
+            $stmt->execute();
+        
+            if ($stmt->affected_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "No se pudo insertar: " . $e->getMessage();
         }
     }
-
-    public function obtieneTodos() {
-        $query = "SELECT * FROM {$this->tabla}";
-        $result = $this->conexion->query($query);
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return [];
-        }
-    }
-
-    public function obtieneDeID($id) {
-        $query = "SELECT * FROM {$this->tabla} WHERE id = ?";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null;
-        }
-    }
-
-    public function borrar($id) {
-        $query = "DELETE FROM {$this->tabla} WHERE id = ?";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 }
 
 ?>

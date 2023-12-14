@@ -1,4 +1,5 @@
 <?php
+require_once("Conexion.php");
 
 abstract class Crud extends Conexion{
 
@@ -27,26 +28,25 @@ abstract class Crud extends Conexion{
     }
 
     function obtieneDeID($id){
-
         try{
-            $select = $conexion->prepare("SELECT * FROM  $this->tabla WHERE id = ?");
+            $select = $this->conexion->prepare("SELECT * FROM  $this->tabla WHERE id = ?");
             $select->bindParam(1, $id);
             $select->execute();
             return $select->fetchAll(PDO::FETCH_OBJ);
-
         } catch (PDOException $e) {
             return false;
         }
     }
+    
 
     function borrar($id){
         try{
-            $borrar=$conn->prepare("DELETE FROM $this->tabla WHERE id = ?");
+            $borrar=$this->conexion->prepare("DELETE FROM $this->tabla WHERE id = ?");
             $borrar->bindParam(1, $id);
             $borrar->execute();
 
         } catch (PDOException $e) {
-            return false;
+            echo "No se puede borrar";
         }
     }
 
