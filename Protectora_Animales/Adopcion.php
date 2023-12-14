@@ -48,7 +48,7 @@ class Adopcion extends Crud {
         $stmt->bindParam(":id", $this->id);
         $stmt->execute();
 
-        if ($stmt->rowCount > 0) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;
