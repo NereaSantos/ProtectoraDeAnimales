@@ -25,12 +25,17 @@ class Animal extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (nombre, especie, raza, genero, color, edad) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO {$this->tabla} (nombre, especie, raza, genero, color, edad) VALUES (:nombre, :especie, :raza, :genero, :color, :edad)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssi", $this->nombre, $this->especie, $this->raza, $this->genero, $this->color, $this->edad);
+        $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":especie", $this->especie);
+        $stmt->bindParam(":raza", $this->raza);
+        $stmt->bindParam(":genero", $this->genero);
+        $stmt->bindParam(":color", $this->color);
+        $stmt->bindParam(":edad", $this->edad);
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;
@@ -38,12 +43,18 @@ class Animal extends Crud {
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET nombre = ?, especie = ?, raza = ?, genero = ?, color = ?, edad = ? WHERE id = ?";
+        $query = "UPDATE {$this->tabla} SET nombre = :nombre, especie = :especie, raza = :raza, genero = :genero, color = :color, edad = :edad WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("sssssii", $this->nombre, $this->especie, $this->raza, $this->genero, $this->color, $this->edad, $this->id);
+        $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":especie", $this->especie);
+        $stmt->bindParam(":raza", $this->raza);
+        $stmt->bindParam(":genero", $this->genero);
+        $stmt->bindParam(":color", $this->color);
+        $stmt->bindParam(":edad", $this->edad);
+        $stmt->bindParam(":id", $this->id);
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;

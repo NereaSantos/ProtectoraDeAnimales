@@ -23,12 +23,15 @@ class Adopcion extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (idAnimal, idUsuario, fecha, razon) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO {$this->tabla} (idAnimal, idUsuario, fecha, razon) VALUES (:idAnimal, :idUsuario, :fecha, :razon)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("iiss", $this->idAnimal, $this->idUsuario, $this->fecha, $this->razon);
+        $stmt->bindParam(":idAnimal", $this->idAnimal);
+        $stmt->bindParam(":idUsuario", $this->idUsuario);
+        $stmt->bindParam(":fecha", $this->fecha);
+        $stmt->bindParam(":razon", $this->razon);
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;
@@ -36,12 +39,16 @@ class Adopcion extends Crud {
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET idAnimal = ?, idUsuario = ?, fecha = ?, razon = ? WHERE id = ?";
+        $query = "UPDATE {$this->tabla} SET idAnimal = :idAnimal, idUsuario = :idUsuario, fecha = :fecha, razon = :razon WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param("iissi", $this->idAnimal, $this->idUsuario, $this->fecha, $this->razon, $this->id);
+        $stmt->bindParam(":idAnimal", $this->idAnimal);
+        $stmt->bindParam(":idusuario", $this->idUsuario);
+        $stmt->bindParam(":fecha", $this->fecha);
+        $stmt->bindParam(":razon", $this->razon);
+        $stmt->bindParam(":id", $this->id);
         $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
+        if ($stmt->rowCount > 0) {
             return true;
         } else {
             return false;
