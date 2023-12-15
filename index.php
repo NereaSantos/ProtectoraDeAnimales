@@ -10,6 +10,6 @@
 <body>
     <button onclick="window.location.href='./controladores/adopcion_controlador.php'">Adopcion</button><br>
     <button onclick="window.location.href='./controladores/usuarios_controlador.php'">Usuarios</button><br>
-    <button onclick="window.location.href='./controladores/animal.php'">Animales</button><br>
+    <button onclick="window.location.href='./controladores/animal_controlador.php'">Animales</button><br>
 </body>
 </html>
