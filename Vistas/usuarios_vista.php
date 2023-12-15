@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<button onclick="window.location.href = '../vista/tablas.php'"><</button>
+<button onclick="window.location.href = '../index.php'"><</button>
     <h1>GESTIÓN DE USUARIOS</h1>
     <h2>Añadir usuario</h2>
     <table class="tablaA">
