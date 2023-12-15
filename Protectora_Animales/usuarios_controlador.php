@@ -18,25 +18,19 @@ if(isset($_POST['borrar'])){
 }
 
 
-//if (isset($_POST['nombre'])) {
+if (isset($_POST['nombreI']) && $_POST['nombreI'] != "") {
 
-//    $usuario->nombre = $_POST['nombre'];
-//    $usuario->apellido = $_POST['apellido'];
-//    $usuario->sexo = $_POST['sexo'];
-//    $usuario->direccion = $_POST['direccion'];
-//    $usuario->telefono = $_POST['telefono'];
+    $usuario->nombre = $_POST['nombreI'];
+    $usuario->apellido = $_POST['apellido'];
+    $usuario->sexo = $_POST['sexo'];
+    $usuario->direccion = $_POST['direccion'];
+    $usuario->telefono = $_POST['telefono'];
 
-//    $usuario->crear();
-//}
-
-if (isset($_POST['modificar'])) {
-    $usu = $usuario->obtieneDeID($_POST['modificar']);
-    require_once("../vista/modificar.php");
+    $usuario->crear();
 }
 
-
 if (isset($_POST['idM'])) {
-
+    $usuario->id = $_POST['idM'];
     $usuario->nombre = $_POST['nombre'];
     $usuario->apellido = $_POST['apellido'];
     $usuario->sexo = $_POST['sexo'];
@@ -46,17 +40,17 @@ if (isset($_POST['idM'])) {
     $usuario->actualizar();
 }
 
-
-
-
-
 if(isset($_POST['Bid'])){
+
     if($_POST['Bid'] == ""){
         $datos = $usuario->obtieneTodos();
+        
     }else{
         $datos = $usuario->obtieneDeID($_POST['Bid']);
     }
+
     require_once("../vista/usuarios_vista.php");
+
 }else{
     if($datos = $usuario->obtieneTodos()) { 
         require_once("../vista/usuarios_vista.php");

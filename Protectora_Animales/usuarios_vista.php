@@ -9,7 +9,7 @@
 <body>
 
 <button onclick="window.location.href = '../vista/tablas.php'"><</button>
-    <h1>GESTIÓN DE Usuarios</h1>
+    <h1>GESTIÓN DE USUARIOS</h1>
     <h2>Añadir usuario</h2>
     <table class="tablaA">
     <form method="post" action="">
@@ -21,7 +21,7 @@
             <th>Teléfono</th>
         </tr>
         <tr>
-            <td><input class="buscar" type="text" name="nombre"/></td>
+            <td><input class="buscar" type="text" name="nombreI"/></td>
             <td><input class="buscar" type="text" name="apellido"/></td>
             <td><input class="buscar" type="text" name="sexo"/></td>
             <td><input class="buscar" type="text" name="direccion"/></td>
@@ -54,20 +54,20 @@
             <th>Sexo</th>
             <th>Direccion</th>
             <th>Teléfono</th>
-            </tr>";
+            <th>Opciones</th>
+            </tr>
+            <form method='post' action=''>";
     
             foreach ($datos as $row) {
                 echo "<tr>
-                <td>".$row->id."</td>
-                <td>".$row->nombre."</td>
-                <td>".$row->apellido."</td>
-                <td>".$row->sexo."</td>
-                <td>".$row->direccion."</td>
-                <td>".$row->telefono."</td>
+                <td><input class='buscar' type='text' name='idM' value='" . $row->id . "' readonly/></td>
+                <td><input class='buscar' type='text' name='nombre' value='" . $row->nombre . "'/></td>
+                <td><input class='buscar' type='text' name='apellido' value='" . $row->apellido . "'/></td>
+                <td><input class='buscar' type='text' name='sexo' value='" . $row->sexo . "'/></td>
+                <td><input class='buscar' type='text' name='direccion' value='" . $row->direccion . "'/></td>
+                <td><input class='buscar' type='text' name='telefono' value='" . $row->telefono . "'/></td>
                 <td>
-                    <form action='' method='post'>
-                        <input type='hidden' name='modificar' value='".$row->id."'>
-                        <button class='boton' type='submit'>Modificar</button>
+                    <button class='boton' type='submit'>Modificar</button>
                     </form>
                     <form action='' method='post'>
                         <input type='hidden' name='borrar' value='".$row->id."'>

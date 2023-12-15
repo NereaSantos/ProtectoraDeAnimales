@@ -9,8 +9,6 @@ class Usuario extends Crud {
     private $sexo;
     private $direccion;
     private $telefono;
-    private $tabla;
-
 
     const TABLA = "usuarios";
 
@@ -27,7 +25,7 @@ class Usuario extends Crud {
 
     public function crear() {
         try {
-            $query = "INSERT INTO self::TABLA (nombre, apellido, sexo, direccion, telefono) VALUES (?,?,?,?,?)";
+            $query = "INSERT INTO ".self::TABLA." (nombre, apellido, sexo, direccion, telefono) VALUES (?,?,?,?,?)";
             $stmt = $this->conexion->prepare($query);
         
             $stmt->bindParam(1, $this->nombre);
@@ -46,25 +44,22 @@ class Usuario extends Crud {
         }
     }
     
-    
-    
-    
-    
-
     public function actualizar() {
         try {
-            $query = "UPDATE self::TABLA SET nombre = ?, apellido = ?, direccion = ?, telefono = ?, edad = ? WHERE id = ?";
+
+            $query = "UPDATE " . self::TABLA . " SET nombre = ?, apellido = ?, sexo = ?, direccion = ?, telefono = ? WHERE id = ?";
             $stmt = $this->conexion->prepare($query);
-            $stmt->bind_param("ssssii", $this->nombre, $this->apellido, $this->direccion, $this->telefono, $this->edad, $this->id);
+            $stmt->bindParam(1, $this->nombre);
+            $stmt->bindParam(2, $this->apellido);
+            $stmt->bindParam(3, $this->sexo);
+            $stmt->bindParam(4, $this->direccion);
+            $stmt->bindParam(5, $this->telefono);
+            $stmt->bindParam(6, $this->id);
             $stmt->execute();
-        
-            if ($stmt->affected_rows > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            
+
         } catch (PDOException $e) {
-            echo "No se pudo insertar: " . $e->getMessage();
+            echo "No se pudo actualizar: " . $e->getMessage();
         }
     }
     
