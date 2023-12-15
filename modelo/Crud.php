@@ -1,56 +1,59 @@
-
 <?php
+require_once("Conexion.php");
 
-// Clase abstracta Crud.php
-abstract class Crud extends Conexion {
+abstract class Crud extends Conexion{
+
     private $tabla;
-    protected $conexion;
+    private $conexion;
 
-    public function __construct($tabla) {
-        $this->tabla = $tabla;
-        $this->conexion = $this->conectar();
+    abstract function crear();
+    abstract function actualizar();
+
+    function __construct($nomTabla){
+
+        $this->tabla = $nomTabla;
+        $this->conexion = $this->realizarConexion();
     }
 
-    public function obtieneTodos() {
-        $query = "SELECT * FROM {$this->tabla}";
-        $result = $this->conexion->query($query);
+    function obtieneTodos(){
 
-        if ($result->num_rows > 0) {
-            return $result->fetch_all(MYSQLI_ASSOC);
-        } else {
-            return [];
-        }
-    }
+        try{
+            $select = $this->conexion->prepare("SELECT * FROM $this->tabla");
+            $select->execute();
+            return $select->fetchAll(PDO::FETCH_OBJ);
 
-    public function obtieneDeID($id) {
-        $query = "SELECT * FROM {$this->tabla} WHERE id = ?";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param(1, $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        } else {
-            return null;
-        }
-    }
-
-    public function borrar($id) {
-        $query = "DELETE FROM {$this->tabla} WHERE id = ?";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bind_param(1, $id);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            return true;
-        } else {
+        } catch (PDOException $e) {
             return false;
         }
     }
 
-    abstract public function crear();
-    abstract public function actualizar();
+    function obtieneDeID($id){
+        try{
+            $select = $this->conexion->prepare("SELECT * FROM  $this->tabla WHERE id = ?");
+            $select->bindParam(1, $id);
+            $select->execute();
+            return $select->fetchAll(PDO::FETCH_OBJ);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    
+
+    function borrar($id){
+        try{
+            $borrar=$this->conexion->prepare("DELETE FROM $this->tabla WHERE id = ?");
+            $borrar->bindParam(1, $id);
+            $borrar->execute();
+
+        } catch (PDOException $e) {
+            echo "No se puede borrar";
+        }
+    }
+
+
+
+
 }
+
 
 ?>
