@@ -49,11 +49,11 @@ if(isset($_POST['Bid'])){
         $datos = $usuario->obtieneDeID($_POST['Bid']);
     }
 
-    require_once("../vista/usuarios_vista.php");
+    require_once("../Vistas/usuarios_vista.php");
 
 }else{
     if($datos = $usuario->obtieneTodos()) { 
-        require_once("../vista/usuarios_vista.php");
+        require_once("../Vistas/usuarios_vista.php");
         
     }else{
         echo "Error al cargar los datos de la base de datos";
