@@ -1,19 +1,18 @@
 <?php
 
-class conexion
-{
+class Conexion{
 
-    private $server = "localhost:3333";
+    private $server = "localhost:3307";
     private $userName = "root";
     private $password = "";
-    private $bdName = "protectora_animales";
+    private $dbName = "protectora_animales";
     private $conn;
 
     protected function RealizarConexion()
     {
         
         try {
-            $this->conn = new PDO("mysql:host=$this->server;dbname=$this->dbname;charset=utf8", $this->userName, $this->password);
+            $this->conn = new PDO("mysql:host=$this->server;dbname=$this->dbName;charset=utf8", $this->userName, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             if ($this->conn !== null) {
