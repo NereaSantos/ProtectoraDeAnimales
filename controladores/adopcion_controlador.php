@@ -45,16 +45,13 @@ if(isset($_POST['Bid'])){
       $datos = $adopcion->obtieneDeID($_POST['Bid']);
   }
 
-  require_once("../vista/adopcion_vista.php");
+  require_once("../vistas/adopcion_vista.php");
 
 }else{
-  if($datos = $adopcion->obtieneTodos()) { 
-      require_once("../vista/adopcion_vista.php");
+  $datos = $adopcion->obtieneTodos();
+   require_once("../vistas/adopcion_vista.php");
       
-  }else{
-      echo "Error al cargar los datos de la base de datos";
   }
-}
 
 
 

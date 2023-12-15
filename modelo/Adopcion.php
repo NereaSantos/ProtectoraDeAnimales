@@ -1,5 +1,5 @@
 <?php
-
+require_once("Crud.php");
 class Adopcion extends Crud {
     private $id;
     private $idAnimal;
@@ -7,7 +7,7 @@ class Adopcion extends Crud {
     private $fecha;
     private $razon;
 
-    const TABLA = "adopciones";
+    const TABLA = "adopcion";
 
     public function __construct() {
         parent::__construct(self::TABLA);
@@ -31,7 +31,7 @@ class Adopcion extends Crud {
         $stmt->bindParam(":razon", $this->razon);
         $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;
