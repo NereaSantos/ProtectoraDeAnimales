@@ -20,10 +20,10 @@
   if(isset($_POST['borrar'])){
     $adopcion->borrar($_POST['borrar']);
 }
-if (isset($_POST['animal']) && $_POST['animal'] != "") {
+if (isset($_POST['animalI']) && $_POST['animalI'] != "") {
 
   $adopcion->idAnimal = $_POST['animalI'];
-  $adpocion->idUsuario = $_POST['usuarioI'];
+  $adopcion->idUsuario = $_POST['usuarioI'];
   $adopcion->fecha = $_POST['fechaI'];
   $adopcion->razon = $_POST['razonI'];
   $adopcion->crear();
@@ -31,7 +31,7 @@ if (isset($_POST['animal']) && $_POST['animal'] != "") {
 if (isset($_POST['idM'])) {
 
   $adopcion->idAnimal = $_POST['animal'];
-  $adpocion->idUsuario = $_POST['usuario'];
+  $adopcion->idUsuario = $_POST['usuario'];
   $adopcion->fecha = $_POST['fecha'];
   $adopcion->razon = $_POST['razon'];
   $adopcion->actualizar();

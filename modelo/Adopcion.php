@@ -23,14 +23,13 @@ class Adopcion extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (idAnimal, idUsuario, fecha, razon) VALUES (:idAnimal, :idUsuario, :fecha, :razon)";
+        $query = "INSERT INTO {$this->tabla} (idAnimal, idUsuario, fecha, razon) VALUES (?,?,?,?)";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(":idAnimal", $this->idAnimal);
-        $stmt->bindParam(":idUsuario", $this->idUsuario);
-        $stmt->bindParam(":fecha", $this->fecha);
-        $stmt->bindParam(":razon", $this->razon);
-        $stmt->execute();
-
+        $stmt->bindParam(1, $this->idAnimal);
+        $stmt->bindParam(2, $this->idUsuario);
+        $stmt->bindParam(3, $this->fecha);
+        $stmt->bindParam(4, $this->razon);
+        
         if ($stmt->execute()) {
             return true;
         } else {
@@ -39,16 +38,17 @@ class Adopcion extends Crud {
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET idAnimal = :idAnimal, idUsuario = :idUsuario, fecha = :fecha, razon = :razon WHERE id = :id";
+        $query = "UPDATE {$this->tabla} SET idAnimal = ?, idUsuario = ?, fecha = ?, razon = ? WHERE id = ?";
         $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(":idAnimal", $this->idAnimal);
-        $stmt->bindParam(":idusuario", $this->idUsuario);
-        $stmt->bindParam(":fecha", $this->fecha);
-        $stmt->bindParam(":razon", $this->razon);
-        $stmt->bindParam(":id", $this->id);
-        $stmt->execute();
+        $stmt->bindParam(1, $this->idAnimal);
+        $stmt->bindParam(2, $this->idUsuario);
+        $stmt->bindParam(3, $this->fecha);
+        $stmt->bindParam(4, $this->razon);
+        $stmt->bindParam(5, $this->id);
+        
+        
 
-        if ($stmt->rowCount() > 0) {
+        if ($stmt->execute()) {
             return true;
         } else {
             return false;

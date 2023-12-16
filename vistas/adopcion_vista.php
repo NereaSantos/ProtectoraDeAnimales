@@ -21,7 +21,7 @@
                 <th>Razon</th>
             </tr>
             <tr>
-                <td><select class="buscar" id='Animal' name='animalI'>
+                <td><select class="buscar" name='animalI'>
                         <?php
                         try {
                             foreach ($animal->obtieneTodos() as $rows) {
@@ -36,7 +36,7 @@
                         ?>
                     </select>
                 </td>
-                <td><select class="buscar" id='Usuario' name='usuarioI'>
+                <td><select class="buscar" name='usuarioI'>
                         <?php try {
                             foreach ($usuario->obtieneTodos() as $rows) {
                                 ?>
