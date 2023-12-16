@@ -1,4 +1,5 @@
 <?php
+require_once("Crud.php");
 
 class Animal extends Crud {
     private $id;
@@ -9,7 +10,7 @@ class Animal extends Crud {
     private $color;
     private $edad;
 
-    const TABLA = "animales";
+    const TABLA = "animal";
 
     public function __construct() {
         parent::__construct(self::TABLA);
@@ -25,7 +26,7 @@ class Animal extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (nombre, especie, raza, genero, color, edad) VALUES (:nombre, :especie, :raza, :genero, :color, :edad)";
+        $query = "INSERT INTO " . self::TABLA . " (nombre, especie, raza, genero, color, edad) VALUES (:nombre, :especie, :raza, :genero, :color, :edad)";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":especie", $this->especie);
@@ -33,17 +34,22 @@ class Animal extends Crud {
         $stmt->bindParam(":genero", $this->genero);
         $stmt->bindParam(":color", $this->color);
         $stmt->bindParam(":edad", $this->edad);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            return true;
-        } else {
+        
+        try {
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            
             return false;
         }
+        
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET nombre = :nombre, especie = :especie, raza = :raza, genero = :genero, color = :color, edad = :edad WHERE id = :id";
+        $query = "UPDATE " . self::TABLA . " SET nombre = :nombre, especie = :especie, raza = :raza, genero = :genero, color = :color, edad = :edad WHERE id = :id";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":especie", $this->especie);
