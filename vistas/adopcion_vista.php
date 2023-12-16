@@ -8,6 +8,8 @@
 </head>
 
 <body>
+<button onclick="window.location.href = '../index.php'"><</button>
+    <div>
     <h1>GESTIÓN DE ADOPCIONES</h1>
     <h2>Añadir adopcion</h2>
     <table class="tablaAD">
@@ -26,7 +28,7 @@
                                 ?>
                                 <option value=' <?= $rows->id ?>'>
                                     <?= $rows->nombre ?>
-                                    </options>
+                                    </option>
                                 <?php }
                         } catch (PDOException $e) {
                             echo "Conexion fallida" . $e->getMessage();
@@ -40,7 +42,7 @@
                                 ?>
                                 <option value=' <?= $rows->id ?>'>
                                     <?= $rows->nombre ?>
-                                    </options>
+                                    </option>
                                 <?php }
                         } catch (PDOException $e) {
                             echo "Conexion fallida" . $e->getMessage();
@@ -54,6 +56,7 @@
                 <td><input class="boton" type="submit" name="btnAñadir" value="Añadir" /></td>
             </tr>
         </form>
+                    </div>
         <h2>Buscar Usuario</h2>
 
         <table>
@@ -86,7 +89,7 @@
                                 ?>
                                 <option value=' <?= $rows->nombre ?>'>
                                     <?= $rows->nombre ?>
-                                    </options>
+                                    </option>
                                 <?php }
                         } catch (PDOException $e) {
                             echo "Conexion fallida" . $e->getMessage();
@@ -101,7 +104,7 @@
                                 ?>
                                 <option value=' <?= $rows->nombre ?>'>
                                     <?= $rows->nombre ?>
-                                    </options>
+                                    </option>
                                 <?php }
                         } catch (PDOException $e) {
                             echo "Conexion fallida" . $e->getMessage();
