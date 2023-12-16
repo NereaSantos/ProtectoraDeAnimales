@@ -56,7 +56,7 @@
                 <td><input class="boton" type="submit" name="btnAñadir" value="Añadir" /></td>
             </tr>
         </form>
-                    </div>
+    </div>
         <h2>Buscar Usuario</h2>
 
         <table>
@@ -82,7 +82,9 @@
             <form method="post" action="">
                 <?php foreach ($datos as $row) { ?>
                     <td> <input class="buscar" type="text" name="idM" value="<?= $row->id ?>" /></td>
-                    <td> <select class="buscar" name="animal" value=" <?= $animal->obtieneDeID($row->idAnimal)->nombre?>">
+                    <td> <select class="buscar" name="animal">
+                    <option selected = 'true'disabled ='disabled' value=''><?php foreach($animal->obtieneDeID($row->id) as $linea) echo $linea->nombre; ?></option>
+                   
                     <?php
                         try {
                             foreach ($animal->obtieneTodos() as $rows) {
@@ -97,7 +99,8 @@
                         ?>
                         </select>
                     </td>
-                    <td> <select class="buscar" name="usuario" value=" <?= $usuario->obtieneDeID($row->idUsuario)->nombre ?>">
+                    <td> <select class="buscar" name="usuario">
+                    <option selected = 'true' disabled ='disabled' value= ''><?php foreach($usuario->obtieneDeID($row->id) as $linea) echo $linea->nombre; ?></option>
                         <?php
                          try {
                             foreach ($usuario->obtieneTodos() as $rows) {

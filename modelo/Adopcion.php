@@ -23,7 +23,7 @@ class Adopcion extends Crud {
     }
 
     public function crear() {
-        $query = "INSERT INTO {$this->tabla} (idAnimal, idUsuario, fecha, razon) VALUES (?,?,?,?)";
+        $query = "INSERT INTO " . self::TABLA . " (idAnimal, idUsuario, fecha, razon) VALUES (?,?,?,?)";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(1, $this->idAnimal);
         $stmt->bindParam(2, $this->idUsuario);
@@ -38,7 +38,7 @@ class Adopcion extends Crud {
     }
 
     public function actualizar() {
-        $query = "UPDATE {$this->tabla} SET idAnimal = ?, idUsuario = ?, fecha = ?, razon = ? WHERE id = ?";
+        $query = "UPDATE " . self::TABLA . " SET idAnimal = ?, idUsuario = ?, fecha = ?, razon = ? WHERE id = ?";
         $stmt = $this->conexion->prepare($query);
         $stmt->bindParam(1, $this->idAnimal);
         $stmt->bindParam(2, $this->idUsuario);

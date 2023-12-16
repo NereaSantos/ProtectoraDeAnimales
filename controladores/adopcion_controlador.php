@@ -12,11 +12,12 @@
   require_once("../modelo/Adopcion.php");
   require_once("../modelo/Animal.php");
   require_once("../modelo/Usuario.php");
- 
+  
   $adopcion = new Adopcion();
   $animal = new Animal();
   $usuario = new Usuario();
-  
+  $placeholderAnimal = new Animal();
+  $placeholderUsuario = new Animal();
   if(isset($_POST['borrar'])){
     $adopcion->borrar($_POST['borrar']);
 }
