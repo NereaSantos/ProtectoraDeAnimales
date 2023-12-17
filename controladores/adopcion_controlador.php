@@ -16,8 +16,6 @@
   $adopcion = new Adopcion();
   $animal = new Animal();
   $usuario = new Usuario();
-  $placeholderAnimal = new Animal();
-  $placeholderUsuario = new Animal();
   if(isset($_POST['borrar'])){
     $adopcion->borrar($_POST['borrar']);
 }
